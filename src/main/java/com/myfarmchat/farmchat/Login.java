@@ -9,11 +9,24 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import org.hibernate.HibernateException;
+import org.hibernate.Session; 
+import org.hibernate.Transaction;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
 
 /**
  *
@@ -65,7 +78,83 @@ public class Login extends JFrame implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        try {
+            addUser();
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void addUser() throws ClassNotFoundException, SQLException {
+        JFrame f1 = new JFrame();
+        JLabel l, l0;
+ 
+        String str1 = usernameTextField.getText();
+        char[] p = passwordField.getPassword();
+        String str2 = new String(p);
         
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction tx = null;
+        Integer userID = null;
+
+        try
+        {
+            tx = session.beginTransaction();
+            User user;
+            user = (User) new UserProfile();
+            userID = (Integer) session.save(user); 
+            tx.commit();
+
+            Class.forName("oracle.jdbc.driver.OracleDriver");
+            Connection con = DriverManager.getConnection("jdbc:oracle:thin:@mcndesktop07:1521:xe", "sandeep", "welcome");
+            PreparedStatement ps = con.prepareStatement("select name from reg where email=? and pass=?");
+            ps.setString(1, str1);
+            ps.setString(2, str2);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next())
+            {
+                f1.setVisible(true);
+                f1.setSize(600, 600);
+                f1.setLayout(null);
+                l = new JLabel();
+                l0 = new JLabel("you are succefully logged in..");
+                l0.setForeground(Color.blue);
+                l0.setFont(new Font("Serif", Font.BOLD, 30));
+                l.setBounds(60, 50, 400, 30);
+                l0.setBounds(60, 100, 400, 40);
+ 
+                f1.add(l);
+                f1.add(l0);
+                l.setText("Welcome " + rs.getString(1));
+                l.setForeground(Color.red);
+                l.setFont(new Font("Serif", Font.BOLD, 30));
+ 
+            } else
+            {
+                JOptionPane.showMessageDialog(null,
+                   "Incorrect email-Id or password..Try Again with correct detail");
+            }
+        }
+        catch (HibernateException e) {
+            if (tx!=null) tx.rollback();
+                e.printStackTrace(); 
+        }
+        finally{ 
+        session.close();
+        }
     }
     
+   public class ManageUsers {
+   private SessionFactory factory; 
+   public void main(String[] args) {
+      try{
+         factory = new Configuration().configure().buildSessionFactory();
+      }catch (Throwable ex) { 
+         System.err.println("Failed to create sessionFactory object." + ex);
+         throw new ExceptionInInitializerError(ex); 
+      }
+      ManageUsers MU = new ManageUsers();
+      Login login = new Login();
+    }
+   }
 }
