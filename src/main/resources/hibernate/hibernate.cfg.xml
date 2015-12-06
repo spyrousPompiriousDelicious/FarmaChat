@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration SYSTEM 
+"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+   <session-factory>
+   <property name="hibernate.dialect">
+      org.hibernate.dialect.MySQLDialect
+   </property>
+   <property name="hibernate.connection.driver_class">
+      com.mysql.jdbc.Driver
+   </property>
+
+   <property name="hibernate.connection.url">
+      jdbc:mysql://localhost/snapchat <!-- database name -->
+   </property>
+   <property name="hibernate.connection.username">
+      root  <!-- database username -->
+   </property>
+   <property name="hibernate.connection.password">
+      root123   <!-- database password -->
+   </property>
+
+   <!-- List of XML mapping files -->
+   <mapping resource="recources.hibernate.mapping.Users.hbm.xml"/>
+
+</session-factory>
+</hibernate-configuration>
