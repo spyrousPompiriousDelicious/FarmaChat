@@ -9,6 +9,8 @@ package com.myfarmchat.farmchat;
 
 /**
  *
+ * 
+ * 
  * @author JohnyWalker
  */
 public interface User 
