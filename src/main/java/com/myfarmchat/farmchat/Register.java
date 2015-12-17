@@ -45,18 +45,23 @@ public class Register extends JFrame implements ActionListener {
         emailLabel = new JLabel("E-mail: ");
         passwordLabel = new JLabel("Password: ");
         registerButton = new JButton("Register");
+        usernameTextField = new JTextField();
+        firstNameTextField = new JTextField();
+        lastNameTextField = new JTextField();
+        emailTextField = new JTextField();
+        passwordField = new JPasswordField();
         
         titleLabel.setBounds(100, 30, 400, 30);
         usernameLabel.setBounds(80, 70, 200, 30);
-        usernameTextField.setBounds(120, 70, 240, 30);
+        usernameTextField.setBounds(150, 70, 240, 30);
         firstNameLabel.setBounds(80, 110, 240, 30);
-        firstNameTextField.setBounds(120, 110, 240, 30);
+        firstNameTextField.setBounds(150, 110, 240, 30);
         lastNameLabel.setBounds(80, 150, 280, 30);
-        lastNameTextField.setBounds(120, 150, 280, 30);
+        lastNameTextField.setBounds(150, 150, 280, 30);
         emailLabel.setBounds(80, 190, 320, 30);
-        emailTextField.setBounds(120, 190, 320, 30);
+        emailTextField.setBounds(150, 190, 320, 30);
         passwordLabel.setBounds(80, 230, 360, 30);
-        passwordField.setBounds(120, 230, 360, 30);
+        passwordField.setBounds(150, 230, 360, 30);
         registerButton.setBounds(150, 270, 100, 30);
         
         add(titleLabel);
@@ -104,9 +109,9 @@ public class Register extends JFrame implements ActionListener {
         session.getTransaction().commit();
         session.close();
         
-        this.dispose();
-        Login loginfrm = new Login(); 
-        loginfrm.setVisible(true);
+//        this.dispose();
+//        Login loginfrm = new Login(); 
+//        loginfrm.setVisible(true);
         
     }
 }

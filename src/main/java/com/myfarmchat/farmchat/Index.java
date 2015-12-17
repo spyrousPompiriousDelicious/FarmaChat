@@ -22,20 +22,20 @@ public class Index extends JFrame implements ActionListener {
     {
         setTitle("Main page in Windows Form");
         //setVisible(true);
-        setSize(800, 800);
+        setSize(500, 500);
         setLayout(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
  
         titleLabel = new JLabel("Farmchat");
         titleLabel.setForeground(Color.blue);
-        titleLabel.setFont(new Font("Serif", Font.BOLD, 20));
+        titleLabel.setFont(new Font("Serif", Font.BOLD, 50));
         
         registerButton = new JButton("Register Here");
         loginButton = new JButton("Login Here");
         
-        titleLabel.setBounds(100, 30, 400, 30);
-        registerButton.setBounds(200, 100, 100, 30);
-        registerButton.setBounds(200, 150, 100, 80);
+        titleLabel.setBounds(100, 50, 400, 100);
+        registerButton.setBounds(150, 150, 130, 50);
+        loginButton.setBounds(150, 200, 130, 50);
         
         add(titleLabel);
         add(registerButton);
@@ -57,9 +57,9 @@ public class Index extends JFrame implements ActionListener {
                 registerfrm.setVisible(true);
                 break;
             case "login":
-                //this.dispose();
-                //JFrame loginfrm = new Login();
-                //loginfrm.setVisible(true);
+//                this.dispose();
+//                JFrame loginfrm = new Login();
+//                loginfrm.setVisible(true);
                 break;
         }
     }
