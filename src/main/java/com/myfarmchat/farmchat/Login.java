@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+//include page="${pageContext.request.contextPath}/header.jsp"
 package com.myfarmchat.farmchat;
 import java.awt.Color;
 import java.awt.Font;
@@ -34,7 +35,7 @@ public class Login extends JFrame implements ActionListener{
     JButton loginButton;
     String username, firstName, lastName, email;
     String password;
-   
+    
     /*
     * dhmiourgia formas
     */
@@ -88,11 +89,10 @@ public class Login extends JFrame implements ActionListener{
         String str1 = usernameTextField.getText();
         char[] p = passwordField.getPassword();
         String str2 = new String(p);
-        
+            Session session = HibernateUtil.getSessionFactory().openSession();
+            Integer userID = null;
             User user = (User) new UserProfile();
-            //userID = (Integer) session.save(user); 
-            Session session = HibernateUtil.getSessionFactory().openSession();      
-            session.getTransaction().begin();    
+            session.getTransaction().begin();  
             Class.forName("oracle.jdbc.driver.OracleDriver");
             Connection con = DriverManager.getConnection("jdbc:oracle:thin:@mcndesktop07:1521:xe", "sandeep", "welcome");
             PreparedStatement ps = con.prepareStatement("select name from reg where email=? and pass=?");
@@ -116,6 +116,7 @@ public class Login extends JFrame implements ActionListener{
                 l.setText("Welcome " + rs.getString(1));
                 l.setForeground(Color.red);
                 l.setFont(new Font("Serif", Font.BOLD, 30));
+                userID = (Integer) session.save(user); 
                 session.getTransaction().commit();
                 rs.close();
                 ps.close();

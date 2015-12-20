@@ -57,9 +57,9 @@ public class Index extends JFrame implements ActionListener {
                 registerfrm.setVisible(true);
                 break;
             case "login":
-//                this.dispose();
-//                JFrame loginfrm = new Login();
-//                loginfrm.setVisible(true);
+                this.dispose();
+                JFrame loginfrm = new Login();
+                loginfrm.setVisible(true);
                 break;
         }
     }
